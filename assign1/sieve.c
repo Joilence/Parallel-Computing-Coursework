@@ -66,8 +66,6 @@ int main(int argc, char** argv) {
         op_index = prime - (low % prime);
     }
 
-    // printf("process %d sieveing %d\n", p_id, prime);
-
     // inner-portion sieve
     for (; op_index < size; op_index += prime) {
       portion[op_index] = 0;
