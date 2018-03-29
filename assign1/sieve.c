@@ -38,7 +38,6 @@ int main(int argc, char** argv) {
   // portion parameter
   int low = (p_id * n / p_num + 2);
   int high = ((p_id + 1) * n / p_num + 2) - 1;
-  int std_size = high - low + 1;
   high = high > n ? n : high;
   int size = high - low + 1;
   printf("process %d, size %d, [%d, %d]. n=%d p_num=%d\n", p_id, size, low,
@@ -69,28 +68,15 @@ int main(int argc, char** argv) {
     // inner-portion sieve
     for (; op_index < size; op_index += prime) {
       portion[op_index] = 0;
-      // if (p_id == 0)
-      //   printf("p %d set %d to false.\n", p_id, p_id * std_size + 2 + op_index);
     }
-
-    // if (p_id == 0) {
-    //     printf("The first portion\n");
-    //     for (int i = 0; i < size; ++i) {
-    //         printf("[%d: %d]", i + 2, portion[i]);
-    //     }
-    //     printf("\n");
-    //     exit(1);
-    // }
 
     // root process find next prime and broadcast
     if (p_id == 0) {
       root_index++;
       while (portion[root_index] == 0) {
-        // printf("%d is not prime.", root_index + 2);
         root_index++;
       }
       prime = root_index + 2;
-      // printf("root choose prime %d\n", prime);
     }
     MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
@@ -101,7 +87,6 @@ int main(int argc, char** argv) {
   int global_count = 0;
   for (int i = 0; i < size; ++i)
     if (portion[i]) count++;
-  // printf("process %d got count %d.\n", p_id, count);
   MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
   time_usage += MPI_Wtime();
