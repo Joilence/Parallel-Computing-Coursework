@@ -40,8 +40,6 @@ int main(int argc, char** argv) {
   int high = ((p_id + 1) * n / p_num + 2) - 1;
   high = high > n ? n : high;
   int size = high - low + 1;
-  printf("process %d, size %d, [%d, %d]. n=%d p_num=%d\n", p_id, size, low,
-         high, n, p_num);
 
   // allocate and initialize portion
   char* portion = (char*)malloc(size * sizeof(char));
