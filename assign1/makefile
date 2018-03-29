@@ -1,7 +1,9 @@
 TARGET := sieve
+N := $(n)
+P := $(p)
 
 run: build
-	mpirun -np 31 --oversubscribe $(TARGET) 1000;
+	mpirun -np $(P) --oversubscribe $(TARGET) $(N);
 
 build:
 	mpicc -o $(TARGET) $(TARGET).c
