@@ -1,3 +1,8 @@
+/**
+ * @Author: Jonathan Yang
+ * @Date: 2018.3.27
+ */
+
 #include <math.h>
 #include <mpi.h>
 #include <stdio.h>
